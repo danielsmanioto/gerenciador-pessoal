@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${contasPagar.id != null ? 'Editar' : 'Nova'} + ' Conta a Pagar'">Conta a Pagar</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Gerenciador Pessoal</h1>
+            <div class="nav-links">
+                <a th:href="@{/}">Home</a>
+                <a th:href="@{/centro-custo}">Centros de Custo</a>
+                <a th:href="@{/contas-pagar}" class="active">Contas a Pagar</a>
+                <div class="user-info">
+                    <span sec:authentication="name">Usuário</span>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-logout">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        
+        <main>
+            <h2 th:text="${contasPagar.id != null ? 'Editar Conta a Pagar' : 'Nova Conta a Pagar'}">Conta a Pagar</h2>
+            
+            <form th:action="@{/contas-pagar}" th:object="${contasPagar}" method="post">
+                <input type="hidden" th:field="*{id}">
+                
+                <div class="form-group">
+                    <label for="centroCusto">Centro de Custo:</label>
+                    <select id="centroCusto" th:field="*{centroCusto.id}" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="centro : ${centrosCusto}" 
+                                th:value="${centro.id}" 
+                                th:text="${centro.descricao}">Centro</option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('centroCusto')}" th:errors="*{centroCusto}" class="error">Erro</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dataConta">Data da Conta:</label>
+                    <input type="date" id="dataConta" th:field="*{dataConta}" required>
+                    <span th:if="${#fields.hasErrors('dataConta')}" th:errors="*{dataConta}" class="error">Erro</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valorPrevisto">Valor Previsto:</label>
+                    <input type="number" id="valorPrevisto" th:field="*{valorPrevisto}" step="0.01" min="0" required>
+                    <span th:if="${#fields.hasErrors('valorPrevisto')}" th:errors="*{valorPrevisto}" class="error">Erro</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valorPago">Valor Pago:</label>
+                    <input type="number" id="valorPago" th:field="*{valorPago}" step="0.01" min="0">
+                    <span th:if="${#fields.hasErrors('valorPago')}" th:errors="*{valorPago}" class="error">Erro</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" th:field="*{status}" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="st : ${statusList}" 
+                                th:value="${st}" 
+                                th:text="${st}">Status</option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="error">Erro</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="informacaoPagamento">Informação de Pagamento:</label>
+                    <textarea id="informacaoPagamento" th:field="*{informacaoPagamento}" rows="3"></textarea>
+                    <span th:if="${#fields.hasErrors('informacaoPagamento')}" th:errors="*{informacaoPagamento}" class="error">Erro</span>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a th:href="@{/contas-pagar}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

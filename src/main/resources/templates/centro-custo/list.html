@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centros de Custo - Gerenciador Pessoal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Gerenciador Pessoal</h1>
+            <div class="nav-links">
+                <a th:href="@{/}">Home</a>
+                <a th:href="@{/centro-custo}" class="active">Centros de Custo</a>
+                <a th:href="@{/contas-pagar}">Contas a Pagar</a>
+                <div class="user-info">
+                    <span sec:authentication="name">Usuário</span>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-logout">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        
+        <main>
+            <div class="page-header">
+                <h2>Centros de Custo</h2>
+                <a th:href="@{/centro-custo/new}" class="btn btn-primary">Novo Centro de Custo</a>
+            </div>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="centro : ${centros}">
+                        <td th:text="${centro.id}">1</td>
+                        <td th:text="${centro.descricao}">Descrição</td>
+                        <td>
+                            <a th:href="@{'/centro-custo/' + ${centro.id} + '/edit'}" class="btn btn-small btn-secondary">Editar</a>
+                            <a th:href="@{'/centro-custo/' + ${centro.id} + '/delete'}" 
+                               class="btn btn-small btn-danger"
+                               onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(centros)}">
+                        <td colspan="3" style="text-align: center;">Nenhum centro de custo cadastrado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

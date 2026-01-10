@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador Pessoal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Gerenciador Pessoal</h1>
+            <div class="nav-links">
+                <a th:href="@{/}">Home</a>
+                <a th:href="@{/centro-custo}">Centros de Custo</a>
+                <a th:href="@{/contas-pagar}">Contas a Pagar</a>
+                <div class="user-info">
+                    <span sec:authentication="name">Usuário</span>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-logout">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        
+        <main>
+            <h2>Bem-vindo ao Gerenciador Pessoal</h2>
+            <div class="dashboard">
+                <div class="card">
+                    <h3>Centros de Custo</h3>
+                    <p>Gerencie seus centros de custo</p>
+                    <a th:href="@{/centro-custo}" class="btn btn-primary">Acessar</a>
+                </div>
+                
+                <div class="card">
+                    <h3>Contas a Pagar</h3>
+                    <p>Gerencie suas contas a pagar</p>
+                    <a th:href="@{/contas-pagar}" class="btn btn-primary">Acessar</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
