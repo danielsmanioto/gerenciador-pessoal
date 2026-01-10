@@ -2,7 +2,6 @@ package com.danielsmanioto.gerenciadorpessoal.service;
 
 import com.danielsmanioto.gerenciadorpessoal.model.Usuario;
 import com.danielsmanioto.gerenciadorpessoal.repository.UsuarioRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,12 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();

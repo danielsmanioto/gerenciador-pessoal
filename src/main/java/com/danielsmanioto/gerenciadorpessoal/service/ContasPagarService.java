@@ -3,18 +3,20 @@ package com.danielsmanioto.gerenciadorpessoal.service;
 import com.danielsmanioto.gerenciadorpessoal.model.ContasPagar;
 import com.danielsmanioto.gerenciadorpessoal.model.Usuario;
 import com.danielsmanioto.gerenciadorpessoal.repository.ContasPagarRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class ContasPagarService {
 
     private final ContasPagarRepository contasPagarRepository;
+
+    public ContasPagarService(ContasPagarRepository contasPagarRepository) {
+        this.contasPagarRepository = contasPagarRepository;
+    }
 
     public List<ContasPagar> findAll() {
         return contasPagarRepository.findAll();

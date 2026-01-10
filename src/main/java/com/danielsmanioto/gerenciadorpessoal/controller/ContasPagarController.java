@@ -3,7 +3,6 @@ package com.danielsmanioto.gerenciadorpessoal.controller;
 import com.danielsmanioto.gerenciadorpessoal.model.ContasPagar;
 import com.danielsmanioto.gerenciadorpessoal.service.CentroCustoService;
 import com.danielsmanioto.gerenciadorpessoal.service.ContasPagarService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,11 +12,15 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/contas-pagar")
-@RequiredArgsConstructor
 public class ContasPagarController {
 
     private final ContasPagarService contasPagarService;
     private final CentroCustoService centroCustoService;
+
+    public ContasPagarController(ContasPagarService contasPagarService, CentroCustoService centroCustoService) {
+        this.contasPagarService = contasPagarService;
+        this.centroCustoService = centroCustoService;
+    }
 
     @GetMapping
     public String list(Model model) {

@@ -2,7 +2,6 @@ package com.danielsmanioto.gerenciadorpessoal.controller;
 
 import com.danielsmanioto.gerenciadorpessoal.model.CentroCusto;
 import com.danielsmanioto.gerenciadorpessoal.service.CentroCustoService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,10 +11,13 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/centro-custo")
-@RequiredArgsConstructor
 public class CentroCustoController {
 
     private final CentroCustoService centroCustoService;
+
+    public CentroCustoController(CentroCustoService centroCustoService) {
+        this.centroCustoService = centroCustoService;
+    }
 
     @GetMapping
     public String list(Model model) {
