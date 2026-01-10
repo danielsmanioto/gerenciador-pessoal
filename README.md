@@ -2,6 +2,9 @@
 
 Sistema monolítico em Java para gerenciamento pessoal e financeiro com controle de contas a pagar.
 
+## Desenho de arquitetura
+<img width="1181" height="141" alt="image" src="https://github.com/user-attachments/assets/3acab026-c660-42dc-aa68-f42fcca0adf1" />
+
 ## Tecnologias
 
 - **Java 17**
