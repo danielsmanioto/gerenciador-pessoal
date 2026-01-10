@@ -1,7 +1,7 @@
 -- Insert default admin user
 -- Password is 'admin123' encrypted with BCrypt
 INSERT INTO usuarios (username, password, nome, ativo) 
-VALUES ('admin', '$2a$10$xQPXr8JjLBT1kKZVdBVf3.qF/jD6KZr4Qx9RGZ.xZV9QLNvqQE0Ue', 'Administrador', true);
+VALUES ('admin', '$2b$12$kqAST3ZXicZkhnfGd9NwtujojsTZrBg9oJW0gduAMIAWqu4kVtI7K', 'Administrador', true);
 
 -- Insert admin role
 INSERT INTO usuario_roles (usuario_id, role) 
