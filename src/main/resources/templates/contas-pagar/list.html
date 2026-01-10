@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contas a Pagar - Gerenciador Pessoal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Gerenciador Pessoal</h1>
+            <div class="nav-links">
+                <a th:href="@{/}">Home</a>
+                <a th:href="@{/centro-custo}">Centros de Custo</a>
+                <a th:href="@{/contas-pagar}" class="active">Contas a Pagar</a>
+                <div class="user-info">
+                    <span sec:authentication="name">Usuário</span>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-logout">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        
+        <main>
+            <div class="page-header">
+                <h2>Contas a Pagar</h2>
+                <a th:href="@{/contas-pagar/new}" class="btn btn-primary">Nova Conta</a>
+            </div>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Centro de Custo</th>
+                        <th>Data</th>
+                        <th>Valor Previsto</th>
+                        <th>Valor Pago</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="conta : ${contas}">
+                        <td th:text="${conta.id}">1</td>
+                        <td th:text="${conta.centroCusto.descricao}">Centro</td>
+                        <td th:text="${#temporals.format(conta.dataConta, 'dd/MM/yyyy')}">01/01/2024</td>
+                        <td th:text="${#numbers.formatDecimal(conta.valorPrevisto, 1, 'POINT', 2, 'COMMA')}">100,00</td>
+                        <td th:text="${conta.valorPago != null ? #numbers.formatDecimal(conta.valorPago, 1, 'POINT', 2, 'COMMA') : '-'}">-</td>
+                        <td>
+                            <span th:text="${conta.status}" 
+                                  th:class="${'status-badge status-' + #strings.toLowerCase(conta.status)}">Status</span>
+                        </td>
+                        <td>
+                            <a th:href="@{'/contas-pagar/' + ${conta.id} + '/edit'}" class="btn btn-small btn-secondary">Editar</a>
+                            <a th:href="@{'/contas-pagar/' + ${conta.id} + '/delete'}" 
+                               class="btn btn-small btn-danger"
+                               onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(contas)}">
+                        <td colspan="7" style="text-align: center;">Nenhuma conta cadastrada</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

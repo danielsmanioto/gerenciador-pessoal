@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${centroCusto.id != null ? 'Editar' : 'Novo'} + ' Centro de Custo'">Centro de Custo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Gerenciador Pessoal</h1>
+            <div class="nav-links">
+                <a th:href="@{/}">Home</a>
+                <a th:href="@{/centro-custo}" class="active">Centros de Custo</a>
+                <a th:href="@{/contas-pagar}">Contas a Pagar</a>
+                <div class="user-info">
+                    <span sec:authentication="name">Usuário</span>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-logout">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        
+        <main>
+            <h2 th:text="${centroCusto.id != null ? 'Editar Centro de Custo' : 'Novo Centro de Custo'}">Centro de Custo</h2>
+            
+            <form th:action="@{/centro-custo}" th:object="${centroCusto}" method="post">
+                <input type="hidden" th:field="*{id}">
+                
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" id="descricao" th:field="*{descricao}" required>
+                    <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="error">Erro</span>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a th:href="@{/centro-custo}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
