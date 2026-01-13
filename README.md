@@ -7,8 +7,8 @@ Sistema monolítico em Java para gerenciamento pessoal e financeiro com controle
 
 ## Tecnologias
 
-- **Java 17**
-- **Spring Boot 3.2.1**
+- **Java 25**
+- **Spring Boot**
 - **Spring Security** (Autenticação e Autorização)
 - **Spring Data JPA** (Persistência)
 - **PostgreSQL** (Banco de dados)
@@ -189,6 +189,15 @@ spring.datasource.username=gerenciador
 spring.datasource.password=gerenciador123
 ```
 
-## Licença
+# Inserindo 50.000 usuários de teste no PostgreSQL:
 
-Este projeto está sob a licença MIT.
+```sql
+INSERT INTO usuarios (username, password, nome, ativo)
+SELECT
+'lalateste' || gs AS username,
+'$2b$12$kqAST3ZXicZkhnfGd9NwtujojsTZrBg9oJW0gduAMIAWqu4kVtI7K' AS password,
+'Administrador' AS nome,
+true AS ativo
+FROM generate_series(1, 50000) AS gs;
+
+```
