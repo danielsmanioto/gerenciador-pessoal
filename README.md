@@ -1,23 +1,56 @@
-# Gerenciador Pessoal e Financeiro
+# 💰 Gerenciador Pessoal e Financeiro
 
-Sistema monolítico em Java para gerenciamento pessoal e financeiro com controle de contas a pagar.
+> Sistema monolítico em Java para gerenciamento pessoal e financeiro com controle de contas a pagar.
 
-## Desenho de arquitetura
-<img width="1181" height="141" alt="image" src="https://github.com/user-attachments/assets/3acab026-c660-42dc-aa68-f42fcca0adf1" />
+[![Java](https://img.shields.io/badge/Java-25-007396?logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.7-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Maven](https://img.shields.io/badge/Maven-3.6%2B-C71A36?logo=apachemaven&logoColor=white)](https://maven.apache.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 
-## Tecnologias
+---
 
-- **Java 25**
-- **Spring Boot**
-- **Spring Security** (Autenticação e Autorização)
-- **Spring Data JPA** (Persistência)
-- **PostgreSQL** (Banco de dados)
-- **Flyway** (Migração de banco de dados)
-- **Thymeleaf** (Template engine para frontend)
-- **Docker Compose** (Containerização do PostgreSQL)
-- **Maven** (Gerenciamento de dependências)
+## 📑 Sumário
 
-## Funcionalidades
+- [Arquitetura](#-arquitetura)
+- [Tecnologias](#-tecnologias)
+- [Funcionalidades](#-funcionalidades)
+- [Modelo de Dados](#-modelo-de-dados)
+- [Pré-requisitos](#-pré-requisitos)
+- [Instalação e Execução](#-instalação-e-execução)
+- [Credenciais Padrão](#-credenciais-padrão)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Dados de Exemplo](#-dados-de-exemplo)
+- [Comandos Úteis](#-comandos-úteis)
+- [Screenshots](#-screenshots)
+- [Configuração](#-configuração)
+- [Scripts de Teste](#-scripts-de-teste)
+
+---
+
+## 🏗 Arquitetura
+
+<img width="1181" height="141" alt="Desenho de arquitetura" src="https://github.com/user-attachments/assets/3acab026-c660-42dc-aa68-f42fcca0adf1" />
+
+---
+
+## 🛠 Tecnologias
+
+| Tecnologia | Descrição |
+|---|---|
+| **Java 25** | Linguagem principal |
+| **Spring Boot** | Framework base da aplicação |
+| **Spring Security** | Autenticação e Autorização |
+| **Spring Data JPA** | Camada de persistência |
+| **PostgreSQL** | Banco de dados relacional |
+| **Flyway** | Migração e versionamento do banco de dados |
+| **Thymeleaf** | Template engine para frontend |
+| **Docker Compose** | Containerização do PostgreSQL |
+| **Maven** | Gerenciamento de dependências e build |
+
+---
+
+## ✅ Funcionalidades
 
 - ✅ Autenticação e autorização de usuários
 - ✅ Gerenciamento de Centros de Custo
@@ -25,41 +58,53 @@ Sistema monolítico em Java para gerenciamento pessoal e financeiro com controle
   - Centro de custo
   - Valor previsto e valor pago
   - Data da conta
-  - Status (PENDENTE, PAGO, VENCIDO, CANCELADO)
+  - Status (`PENDENTE`, `PAGO`, `VENCIDO`, `CANCELADO`)
   - Informações de pagamento
 - ✅ Interface web responsiva e moderna
 
-## Modelo de Dados
+---
+
+## 🗄 Modelo de Dados
 
 ### Usuário
-- ID
-- Username (único)
-- Password (criptografada com BCrypt)
-- Nome
-- Ativo (boolean)
-- Roles (ROLE_ADMIN, etc.)
+| Campo | Tipo | Observação |
+|---|---|---|
+| ID | Long | Chave primária |
+| Username | String | Único |
+| Password | String | Criptografada com BCrypt |
+| Nome | String | — |
+| Ativo | boolean | — |
+| Roles | Set | `ROLE_ADMIN`, etc. |
 
 ### Centro de Custo
-- ID
-- Descrição
+| Campo | Tipo | Observação |
+|---|---|---|
+| ID | Long | Chave primária |
+| Descrição | String | — |
 
 ### Contas a Pagar
-- ID
-- Centro de Custo (FK)
-- Valor Previsto
-- Valor Pago
-- Data da Conta
-- Informação de Pagamento
-- Status
-- Usuário (FK, opcional)
+| Campo | Tipo | Observação |
+|---|---|---|
+| ID | Long | Chave primária |
+| Centro de Custo | FK | — |
+| Valor Previsto | BigDecimal | — |
+| Valor Pago | BigDecimal | — |
+| Data da Conta | LocalDate | — |
+| Informação de Pagamento | String | — |
+| Status | Enum | `PENDENTE`, `PAGO`, `VENCIDO`, `CANCELADO` |
+| Usuário | FK | Opcional |
 
-## Pré-requisitos
+---
+
+## 📋 Pré-requisitos
 
 - Java 17 ou superior
 - Maven 3.6+
 - Docker e Docker Compose
 
-## Instalação e Execução
+---
+
+## 🚀 Instalação e Execução
 
 ### 1. Clone o repositório
 
@@ -74,11 +119,11 @@ cd gerenciador-pessoal
 docker compose up -d
 ```
 
-Este comando irá:
-- Baixar a imagem do PostgreSQL 16
-- Criar um container com o banco de dados
-- Configurar o banco `gerenciador_pessoal` com usuário `gerenciador` e senha `gerenciador123`
-- Expor a porta 5432
+> Este comando irá:
+> - Baixar a imagem do PostgreSQL 16
+> - Criar um container com o banco de dados
+> - Configurar o banco `gerenciador_pessoal` com usuário `gerenciador` e senha `gerenciador123`
+> - Expor a porta `5432`
 
 ### 3. Compile o projeto
 
@@ -102,12 +147,20 @@ mvn spring-boot:run
 
 Abra seu navegador e acesse: [http://localhost:8080](http://localhost:8080)
 
-## Credenciais Padrão
+---
 
-- **Usuário:** admin
-- **Senha:** admin123
+## 🔑 Credenciais Padrão
 
-## Estrutura do Projeto
+| Campo | Valor |
+|---|---|
+| **Usuário** | `admin` |
+| **Senha** | `admin123` |
+
+> ⚠️ **Atenção:** Altere as credenciais padrão antes de utilizar em ambiente de produção.
+
+---
+
+## 📂 Estrutura do Projeto
 
 ```
 src/
@@ -127,41 +180,37 @@ src/
 └── test/                    # Testes
 ```
 
-## Dados de Exemplo
+---
+
+## 🌱 Dados de Exemplo
 
 O sistema é inicializado com os seguintes centros de custo:
-- Alimentação
-- Transporte
-- Moradia
-- Saúde
-- Educação
-- Lazer
-- Investimentos
-- Outros
 
-## Comandos Úteis
+| # | Centro de Custo |
+|---|---|
+| 1 | Alimentação |
+| 2 | Transporte |
+| 3 | Moradia |
+| 4 | Saúde |
+| 5 | Educação |
+| 6 | Lazer |
+| 7 | Investimentos |
+| 8 | Outros |
 
-### Parar o banco de dados
-```bash
-docker compose down
-```
+---
 
-### Parar e remover volumes (reset completo)
-```bash
-docker compose down -v
-```
+## 🧰 Comandos Úteis
 
-### Verificar logs do banco de dados
-```bash
-docker compose logs -f postgres
-```
+| Ação | Comando |
+|---|---|
+| Parar o banco de dados | `docker compose down` |
+| Parar e remover volumes (reset completo) | `docker compose down -v` |
+| Verificar logs do banco de dados | `docker compose logs -f postgres` |
+| Recompilar sem executar testes | `mvn clean package -DskipTests` |
 
-### Recompilar sem executar testes
-```bash
-mvn clean package -DskipTests
-```
+---
 
-## Screenshots
+## 🖼 Screenshots
 
 ### Tela de Login
 ![Login](https://github.com/user-attachments/assets/33a14dfa-e41c-46db-80ca-44b1e5d9ec18)
@@ -175,7 +224,9 @@ mvn clean package -DskipTests
 ### Formulário de Contas a Pagar
 ![Contas a Pagar](https://github.com/user-attachments/assets/c674fe4d-e000-44ae-af1a-2f140463540e)
 
-## Configuração
+---
+
+## ⚙️ Configuração
 
 As configurações principais estão em `src/main/resources/application.properties`:
 
@@ -189,15 +240,18 @@ spring.datasource.username=gerenciador
 spring.datasource.password=gerenciador123
 ```
 
-# Inserindo 50.000 usuários de teste no PostgreSQL:
+---
+
+## 🧪 Scripts de Teste
+
+### Inserindo 50.000 usuários de teste no PostgreSQL
 
 ```sql
 INSERT INTO usuarios (username, password, nome, ativo)
 SELECT
-'lalateste' || gs AS username,
-'$2b$12$kqAST3ZXicZkhnfGd9NwtujojsTZrBg9oJW0gduAMIAWqu4kVtI7K' AS password,
-'Administrador' AS nome,
-true AS ativo
+    'lalateste' || gs AS username,
+    '$2b$12$kqAST3ZXicZkhnfGd9NwtujojsTZrBg9oJW0gduAMIAWqu4kVtI7K' AS password,
+    'Administrador' AS nome,
+    true AS ativo
 FROM generate_series(1, 50000) AS gs;
-
 ```
