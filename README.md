@@ -13,6 +13,8 @@
 ## 📑 Sumário
 
 - [Arquitetura](#-arquitetura)
+- [Documento do Projeto](#-documento-do-projeto)
+- [Projetos Relacionados](#-projetos-relacionados)
 - [Tecnologias](#-tecnologias)
 - [Funcionalidades](#-funcionalidades)
 - [Modelo de Dados](#-modelo-de-dados)
@@ -31,6 +33,22 @@
 ## 🏗 Arquitetura
 
 <img width="1181" height="141" alt="Desenho de arquitetura" src="https://github.com/user-attachments/assets/3acab026-c660-42dc-aa68-f42fcca0adf1" />
+
+---
+
+## 📘 Documento do Projeto
+
+- Documento detalhado: [projeto.md](projeto.md)
+
+---
+
+## 🔗 Projetos Relacionados
+
+| Projeto | Repositório |
+|---|---|
+| Gerenciador Pessoal | [danielsmanioto/gerenciador-pessoal](https://github.com/danielsmanioto/gerenciador-pessoal) |
+| Kafka Producer – Contas a Pagar | [danielsmanioto/kafka-producer-contas-pagar](https://github.com/danielsmanioto/kafka-producer-contas-pagar) |
+| Kafka Consumer – Contas a Pagar | [danielsmanioto/kafka-consumer-contas-pagar](https://github.com/danielsmanioto/kafka-consumer-contas-pagar) |
 
 ---
 

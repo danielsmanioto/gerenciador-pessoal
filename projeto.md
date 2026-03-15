@@ -7,6 +7,16 @@ A solução é composta por uma aplicação principal (monolítica) e serviços 
 
 ---
 
+## Projetos Relacionados
+
+| Projeto | Repositório |
+|---|---|
+| Gerenciador Pessoal | [danielsmanioto/gerenciador-pessoal](https://github.com/danielsmanioto/gerenciador-pessoal) |
+| Kafka Producer – Contas a Pagar | [danielsmanioto/kafka-producer-contas-pagar](https://github.com/danielsmanioto/kafka-producer-contas-pagar) |
+| Kafka Consumer – Contas a Pagar | [danielsmanioto/kafka-consumer-contas-pagar](https://github.com/danielsmanioto/kafka-consumer-contas-pagar) |
+
+---
+
 ## Visão Geral da Arquitetura
 
 A arquitetura é dividida em três projetos principais:
