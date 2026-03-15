@@ -13,7 +13,8 @@
 ## 📑 Sumário
 
 - [Arquitetura](#-arquitetura)
-- [Documento do Projeto](#-documento-do-projeto)
+- [Visão Geral do Ecossistema](#-visão-geral-do-ecossistema)
+- [Objetivo do Repositório](#-objetivo-do-repositório)
 - [Projetos Relacionados](#-projetos-relacionados)
 - [Tecnologias](#-tecnologias)
 - [Funcionalidades](#-funcionalidades)
@@ -36,9 +37,37 @@
 
 ---
 
-## 📘 Documento do Projeto
+## 🌐 Visão Geral do Ecossistema
 
-- Documento detalhado: [projeto.md](projeto.md)
+A solução é composta por três frentes principais que se integram para suportar o gerenciamento financeiro e a troca assíncrona de dados:
+
+- **Aplicação Web Monolítica** para cadastro e gestão de contas a pagar
+- **Producer Kafka em Python** para publicação de eventos
+- **Consumer Kafka em Java** para consumo e persistência dos dados
+
+A comunicação entre os sistemas ocorre de forma assíncrona com **Apache Kafka**, promovendo desacoplamento e escalabilidade.
+
+### Desenho complementar
+
+<img width="1522" height="727" alt="Desenho complementar da solução" src="https://github.com/user-attachments/assets/9178fb39-6070-4565-a55a-b884d8ea737a" />
+
+---
+
+## 🎯 Objetivo do Repositório
+
+Este repositório tem como objetivo:
+
+- Estudar e praticar **integração assíncrona com Kafka**
+- Aplicar conceitos de **arquitetura de sistemas**
+- Simular um cenário real de comunicação entre serviços
+- Servir como base de aprendizado e evolução futura
+
+Também há espaço para evoluções futuras, como:
+
+- Containerização com Docker
+- Orquestração com Docker Compose
+- Observabilidade e monitoramento
+- Separação futura em microserviços
 
 ---
 
