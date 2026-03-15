@@ -39,11 +39,12 @@
 
 ## 🌐 Visão Geral do Ecossistema
 
-A solução é composta por três frentes principais que se integram para suportar o gerenciamento financeiro e a troca assíncrona de dados:
+A solução é composta por quatro frentes principais que se integram para suportar o gerenciamento financeiro e a troca assíncrona de dados:
 
 - **Aplicação Web Monolítica** para cadastro e gestão de contas a pagar
 - **Producer Kafka em Python** para publicação de eventos
 - **Consumer Kafka em Java** para consumo e persistência dos dados
+- **Infraestrutura Centralizada** para Kafka, Zookeeper e bancos PostgreSQL
 
 A comunicação entre os sistemas ocorre de forma assíncrona com **Apache Kafka**, promovendo desacoplamento e escalabilidade.
 
@@ -64,8 +65,8 @@ Este repositório tem como objetivo:
 
 Também há espaço para evoluções futuras, como:
 
-- Containerização com Docker
-- Orquestração com Docker Compose
+- Evolução da infraestrutura compartilhada
+- Orquestração com Docker Compose centralizado
 - Observabilidade e monitoramento
 - Separação futura em microserviços
 
@@ -78,6 +79,7 @@ Também há espaço para evoluções futuras, como:
 | Gerenciador Pessoal | [danielsmanioto/gerenciador-pessoal](https://github.com/danielsmanioto/gerenciador-pessoal) |
 | Kafka Producer – Contas a Pagar | [danielsmanioto/kafka-producer-contas-pagar](https://github.com/danielsmanioto/kafka-producer-contas-pagar) |
 | Kafka Consumer – Contas a Pagar | [danielsmanioto/kafka-consumer-contas-pagar](https://github.com/danielsmanioto/kafka-consumer-contas-pagar) |
+| Infraestrutura Centralizada | [danielsmanioto/infra-gerenciador-pessoal](https://github.com/danielsmanioto/infra-gerenciador-pessoal) |
 
 ---
 
@@ -92,7 +94,7 @@ Também há espaço para evoluções futuras, como:
 | **PostgreSQL** | Banco de dados relacional |
 | **Flyway** | Migração e versionamento do banco de dados |
 | **Thymeleaf** | Template engine para frontend |
-| **Docker Compose** | Containerização do PostgreSQL |
+| **Docker / Docker Compose** | Execução da infraestrutura local centralizada |
 | **Maven** | Gerenciamento de dependências e build |
 
 ---
@@ -153,28 +155,30 @@ Também há espaço para evoluções futuras, como:
 
 ## 🚀 Instalação e Execução
 
-### 1. Clone o repositório
+### 1. Clone os repositórios necessários
 
 ```bash
 git clone https://github.com/danielsmanioto/gerenciador-pessoal.git
-cd gerenciador-pessoal
+git clone https://github.com/danielsmanioto/infra-gerenciador-pessoal.git
 ```
 
-### 2. Inicie o banco de dados PostgreSQL
+### 2. Inicie a infraestrutura centralizada
 
 ```bash
+cd infra-gerenciador-pessoal
 docker compose up -d
 ```
 
 > Este comando irá:
-> - Baixar a imagem do PostgreSQL 16
-> - Criar um container com o banco de dados
-> - Configurar o banco `gerenciador_pessoal` com usuário `gerenciador` e senha `gerenciador123`
-> - Expor a porta `5432`
+> - Subir o Zookeeper na porta `2181`
+> - Subir o Kafka na porta `9092`
+> - Criar o banco `gerenciador_pessoal` na porta `5432`
+> - Criar o banco `contaspagar` na porta `5433`
 
 ### 3. Compile o projeto
 
 ```bash
+cd ../gerenciador-pessoal
 mvn clean package
 ```
 
@@ -250,9 +254,10 @@ O sistema é inicializado com os seguintes centros de custo:
 
 | Ação | Comando |
 |---|---|
-| Parar o banco de dados | `docker compose down` |
-| Parar e remover volumes (reset completo) | `docker compose down -v` |
-| Verificar logs do banco de dados | `docker compose logs -f postgres` |
+| Parar a infraestrutura | `cd ../infra-gerenciador-pessoal && docker compose down` |
+| Resetar a infraestrutura | `cd ../infra-gerenciador-pessoal && docker compose down -v` |
+| Ver logs do PostgreSQL principal | `cd ../infra-gerenciador-pessoal && docker compose logs -f postgres-gerenciador` |
+| Ver logs do Kafka | `cd ../infra-gerenciador-pessoal && docker compose logs -f kafka` |
 | Recompilar sem executar testes | `mvn clean package -DskipTests` |
 
 ---
@@ -282,10 +287,12 @@ As configurações principais estão em `src/main/resources/application.properti
 server.port=8080
 
 # Configuração do banco de dados
-spring.datasource.url=jdbc:postgresql://localhost:5432/gerenciador_pessoal
-spring.datasource.username=gerenciador
-spring.datasource.password=gerenciador123
+spring.datasource.url=${GERENCIADOR_DB_URL:jdbc:postgresql://localhost:5432/gerenciador_pessoal}
+spring.datasource.username=${GERENCIADOR_DB_USERNAME:gerenciador}
+spring.datasource.password=${GERENCIADOR_DB_PASSWORD:gerenciador123}
 ```
+
+> A infraestrutura local é mantida no repositório [danielsmanioto/infra-gerenciador-pessoal](https://github.com/danielsmanioto/infra-gerenciador-pessoal).
 
 ---
 
